@@ -1,29 +1,11 @@
+
 <template>
-  <div class="user-photopage">
-    <ul style="padding:0px;">
-      <li style="list-style:none;">
-        <div class="item-date">2019/7/25</div>
-        <template>
-          <viewer :images="images">
-            <div>
-              <img v-for="src in images" :src="src" :key="src" width="300" style="padding:5px;" />
-              <span class="el-icon-download"></span>
-            </div>
-          </viewer>
-        </template>
-      </li>
-    </ul>
-  </div>
-</template>
-      </li>
-
-      
-    </ul>
-  </div>
+  <viewer :images="images">
+    <img v-for="src in images" :src="src" :key="src" width="300" style="padding:5px;" />
+  </viewer>
 </template>
 
-
-<script >
+<script type="text/ecmascript-6">
 export default {
   name: "images",
   data() {
@@ -60,19 +42,3 @@ export default {
 };
 </script>
  
-
-
-<style lang="scss" scoped>
-.item-date {
-  background-color: #333;
-  width: 110px;
-  height: 30px;
-  line-height: 30px;
-  border-radius: 15px;
-  text-align: center;
-  margin-bottom: 5px;
-  color: #f2f2f2;
-}
-</style>
-
-

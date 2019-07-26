@@ -8,6 +8,8 @@ import PhotoSchedule from '@/components/PhotoSchedule'
 import FinishTable from '@/components/FinishTable' 
 import UserList from '@/components/UserList'
 import UserAdd from '@/components/UserAdd'
+import test from '@/components/test'
+
 
 
 Vue.use(Router)
@@ -54,7 +56,12 @@ export default new Router({
       path: '/user-add',
       name: 'UserAdd',
       component: UserAdd
+    },{
+      path: '/test',
+      name: 'test',
+      component: test
     },
+    
  
   ]
 })
