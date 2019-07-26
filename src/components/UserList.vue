@@ -18,7 +18,7 @@
         <el-table-column prop="remarks" label="备注" align="center"></el-table-column>
         <el-table-column prop="action" label="操作" align="center">
           <template slot-scope="scope">
-            <el-button size="mini" @click="editFormVisible = true">编辑</el-button>
+            <el-button size="mini" @click="handleClick(scope.row)">编辑</el-button>
             <el-button size="mini" type="danger" @click="open">禁用</el-button>
           </template>
         </el-table-column>
@@ -97,8 +97,8 @@ export default {
       form: {
         name: "",
         region: "",
-        // date1: "",
-        // date2: "",
+        date1: "",
+        date2: "",
         delivery: false,
         type: [],
         resource: "",
@@ -108,12 +108,9 @@ export default {
     };
   },
   methods: {
-    // handleEdit(index, row) {
-    //   console.log(index, row);
-    // },
-    // handleDelete(index, row) {
-    //   console.log(index, row);
-    // },
+     handleClick(row) {
+        console.log(row);
+      },
     open() {
       this.$confirm("是否确定禁用该用户?", "提示", {
         confirmButtonText: "确定",
@@ -136,3 +133,7 @@ export default {
   }
 };
 </script>
+
+<style >
+
+</style>
