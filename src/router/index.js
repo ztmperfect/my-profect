@@ -7,7 +7,7 @@ import ProgressPlan from '@/components/ProgressPlan'
 import PhotoSchedule from '@/components/PhotoSchedule' 
 import FinishTable from '@/components/FinishTable' 
 import UserList from '@/components/UserList'
-import UserAdd from '@/components/UserAdd'
+import UserListadd from '@/components/UserListadd'
 import test from '@/components/test'
 
 
@@ -53,9 +53,9 @@ export default new Router({
       name: 'UserList',
       component: UserList
     },{
-      path: '/user-add',
-      name: 'UserAdd',
-      component: UserAdd
+      path: '/User-listadd',
+      name: 'UserListadd',
+      component: UserListadd
     },{
       path: '/test',
       name: 'test',

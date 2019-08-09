@@ -6,8 +6,11 @@
         <template>
           <viewer :images="images">
             <div>
-              <img v-for="src in images" :src="src" :key="src" width="300" style="padding:5px;" />
-              <span class="el-icon-download"></span>
+              
+                <img v-for="src in images" :src="src" :key="src" width="300" style="padding:5px;" />
+               
+              
+              
             </div>
           </viewer>
         </template>
@@ -15,12 +18,7 @@
     </ul>
   </div>
 </template>
-      </li>
-
-      
-    </ul>
-  </div>
-</template>
+     
 
 
 <script >
@@ -52,9 +50,7 @@ export default {
         .then(function(response) {
           _this.images = response.data.data;
         })
-        .catch(function(err) {
-          console.log(err);
-        });
+        
     }
   }
 };

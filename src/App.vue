@@ -3,13 +3,13 @@
     <div class="comy-content">中易智能相册管理系统</div>
     <el-container style="height: 900px; border: 1px solid #eee">
       <el-aside width="200px" style="background-color:#f5f5f5">
-        <el-menu :default-openeds="['1','3']" router>
+        <el-menu :default-openeds="['1','2','3']" router>
           <el-submenu index="1">
             <template slot="title">
               <i class="el-icon-s-tools"></i>用户管理
             </template>
             <el-menu-item index="/user-list">用户列表</el-menu-item>
-            <!-- <el-menu-item index="/user-add">添加用户</el-menu-item> -->
+            <el-menu-item index="/User-listadd">待分配列表</el-menu-item>
           </el-submenu>
           <el-submenu index="2">
             <template slot="title">
