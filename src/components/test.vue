@@ -1,8 +1,20 @@
 
 <template>
-  <viewer :images="images">
+<div>
+   <viewer :images="images">
     <img v-for="src in images" :src="src" :key="src" width="300" style="padding:5px;" />
   </viewer>
+  <template v-if="loginType === 'username'">
+  <label>Username</label>
+  <input placeholder="Enter your username">
+</template>
+<template v-else>
+  <label>Email</label>
+  <input placeholder="Enter your email address">
+</template>
+
+</div>
+ 
 </template>
 
 <script type="text/ecmascript-6">

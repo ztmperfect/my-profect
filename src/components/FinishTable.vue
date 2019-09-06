@@ -1,125 +1,104 @@
 <template>
-    <div id="MyTable">
-    <div class="search-area">
-      <div class="search-item" align="center">
-        <el-select v-model="value1" multiple placeholder="按校区">
-          <el-option
-            v-for="item in options"
-            :key="item.value"
-            :label="item.label"
-            :value="item.value"
-          ></el-option>
-        </el-select>
+  <div id="MyTable">
+    <el-row>
+      <el-col :span="24" style="text-align:center " class="search_box">
+        <el-input v-model="searchPerson1" placeholder="按校区/班级/姓名" class="search_area_item"></el-input>
+        <el-button type="primary" round class="search_btn" @click="btnsearch1()">搜索</el-button>
+      </el-col>
+    </el-row>
 
-        <el-select
-          v-model="value2"
-          multiple
-          collapse-tags
-          placeholder="按班级"
-          style="margin-left: 20px;"
-        >
-          <el-option
-            v-for="item in options"
-            :key="item.value"
-            :label="item.label"
-            :value="item.value"
-          ></el-option>
-        </el-select>
+    <el-table :data="stuFinshlist">
+      <el-table-column prop="create_time" label="分配日期" align="center" class-name></el-table-column>
+      <el-table-column prop="school_name" label="学校" align="center"></el-table-column>
+      <el-table-column prop="class_name" label="班级" align="center"></el-table-column>
+      <el-table-column prop="name" label="姓名" align="center"></el-table-column>
+      <el-table-column prop="date2" label="完成日期" align="center"></el-table-column>
+      <el-table-column prop="is_complete" label="完成状态" align="center"></el-table-column>
 
-        <el-select
-          v-model="value3"
-          multiple
-          collapse-tags
-          placeholder="按姓名"
-          style="margin-left: 20px;"
-        >
-          <el-option
-            v-for="item in options"
-            :key="item.value"
-            :label="item.label"
-            :value="item.value"
-          ></el-option>
-        </el-select>
-        <el-button type="primary" icon="el-icon-search" class="mytable-searchicon">搜索</el-button>
-      </div>
-      
-    </div>
-    <el-table :data="tableData"  >
-      <el-table-column prop="Fdate" label="分配日期" width="200" align="center" class-name=""></el-table-column>
-      <el-table-column prop="school" label="学校" width="200" align="center"></el-table-column>
-      <el-table-column prop="room" label="班级" width="200" align="center"></el-table-column>
-      <el-table-column prop="name" label="姓名" width="200" align="center"></el-table-column>
-      
-      <el-table-column prop="date1" label="初始日期" width="200" align="center"></el-table-column>
-      <el-table-column prop="date2" label="完成日期" width="200" align="center"></el-table-column>
- 
-       <el-table-column prop="check" label="操作" width="100px;" align="center">
+      <el-table-column prop="check" label="操作" align="center">
         <router-link to="/user-photo">查看</router-link>
-            </el-table-column> 
-
-      <el-table-column prop="finish" label="状态" width="200" align="center">
-  <el-select v-model="value" placeholder="已完成" style="width:80px;">
-    <el-option
-      v-for="item in options"
-      :key="item.value"
-      :label="item.label"
-      :value="item.value">
-    </el-option>
-  </el-select>
       </el-table-column>
-      
     </el-table>
-
-  
   </div>
 </template>
 
 
 <script>
+import store from '../../store';
 export default {
   name: "MyTable",
   data() {
-    const item = {
-      Fdate:'2016/05/01',
-      date1: "2016/05/02",
-      date2:'2016/5/30',
-      name: "王小虎",
-      room: "荷兰班",
-      school: "百家湖",
-      finish:''
-     
-      
-    };
     return {
-      value:'',
-      value1:'',
-      value2:'',
-      value3:'',
-      options: [],
-      tableData: Array(8).fill(item)
-    };
+      stuFinshlist: [],
+      searchPerson1: "",
+      search:""
+    }
   },
-  methods: {}
+  mounted: function() {
+    this.getStufinlist();
+  },
+  methods: {
+     errorMsg() {
+      this.$message.error("搜索的内容不存在哦！");
+    },
+    // 获取列表数据
+    getStufinlist() {
+      const _this = this;
+      _this
+        .$axios({
+          method: "get",
+          // url: "/api/pay_stu/?is_complete=1&worker="+store.state.userId
+          url: `/api/pay_stu/?is_complete=1&worker=${store.state.userId}` // vue  模版字符串
+        })
+        .then(function(response) {
+          // console.log(response.data.results);
+          _this.stuFinshlist = response.data.results;
+        })
+        .catch(function(err) {
+          console.log(222222222222222, err);
+        });
+    },
+
+    //  搜索
+   btnsearch1() {
+      const _this = this;
+      this.$axios({
+        method: "get",
+        url: "/api/pay_stu/?search=" + _this.searchPerson1
+      })
+        .then(function(response) {
+          console.log(response);
+          if (response.status === 200) {
+            if (!response.data.results.length == 0) {
+              _this.stuList = response.data.results;
+            } else {
+              _this.errorMsg();
+            }
+          } else {
+            _this.$message({
+              message: response.data.msg,
+              type: "error"
+            });
+          }
+        })
+        .catch(function(response) {
+          console.log(response);
+        });
+    }
+  }
 };
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style>
-.search-area {
-  margin-left: 40px;
-  
-  
+.el-row .search_box {
+  margin: 50px 0px 50px 0px !important;
 }
-.search-item {
-    margin-bottom: 20px;
-   
-  }
-  .mytable-searchicon {
-  
-    margin-left: 80px;
-    margin-top: 40px;
-    margin-bottom: 40px;
-  }
-
+.search_area_item {
+  width: 500px;
+}
+.search_btn {
+  margin-left: 40px;
+}
 </style>
 
